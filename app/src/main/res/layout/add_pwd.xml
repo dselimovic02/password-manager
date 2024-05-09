@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/add_pwd"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="30dp">
+
+    <TextView
+        android:id="@+id/pwd_view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Add new password"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:paddingVertical="5dp"
+        android:layout_marginBottom="20dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_title_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_below="@+id/pwd_view_title">
+
+        <TextView
+            android:id="@+id/title_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/title_title"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_username_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_below="@+id/pwd_view_title_group">
+
+        <TextView
+            android:id="@+id/username_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/username"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="10dp"
+            android:textSize="16sp"
+            android:layout_below="@id/username_title"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_pwd_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_below="@+id/pwd_view_username_group">
+
+        <TextView
+            android:id="@+id/pwd_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/generate"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/pwd_title"
+            android:imeOptions="actionDone"
+            android:inputType="textPassword"
+            />
+
+        <ImageButton
+            android:id="@+id/generate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/key"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_toLeftOf="@id/show_hide_btn"
+            android:layout_centerVertical="true"/>
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/show_hide_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:textOn="Hide"
+            android:textOff="Show"
+            android:checked="false"
+            android:background="@android:color/transparent"/>
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_url_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:layout_below="@+id/pwd_view_pwd_group">
+
+        <TextView
+            android:id="@+id/url_title"
+            android:text="URL"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"/>
+
+        <EditText
+            android:id="@+id/url"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="16sp"
+            android:layout_below="@id/url_title"
+            android:imeOptions="actionDone"
+            android:inputType="text"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pwd_view_url_group"
+        >
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Save"
+            android:layout_marginHorizontal="4dp"
+            />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_toRightOf="@id/btn_save"
+            android:layout_marginHorizontal="4dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>

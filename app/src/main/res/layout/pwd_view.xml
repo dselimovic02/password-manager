@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/pwd_view"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
+    android:layout_marginHorizontal="30dp">
+
+    <TextView
+        android:id="@+id/pwd_view_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="My Password"
+        android:textSize="28sp"
+        android:textStyle="bold"
+        android:paddingVertical="5dp"
+        />
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_username_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginVertical="4dp"
+        android:outlineProvider="background"
+        android:layout_below="@+id/pwd_view_title">
+
+        <TextView
+            android:id="@+id/username_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Username"
+            android:textSize="20sp"/>
+
+        <ImageButton
+            android:id="@+id/copy_username"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/copy"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <TextView
+            android:id="@+id/username"
+            android:layout_width="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/copy_username"
+            android:layout_height="wrap_content"
+            android:text="username@gmail.com"
+            android:textSize="18sp"
+            android:layout_below="@id/username_title"
+            android:textIsSelectable="true"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_pwd_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginVertical="4dp"
+        android:layout_below="@+id/pwd_view_username_group">
+
+        <TextView
+            android:id="@+id/pwd_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Password"
+            android:textSize="20sp"/>
+
+        <ImageButton
+            android:id="@+id/copy_pwd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/copy"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <androidx.appcompat.widget.AppCompatToggleButton
+            android:id="@+id/show_hide_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@id/copy_pwd"
+            android:layout_centerVertical="true"
+            android:textOn="Hide"
+            android:textOff="Show"
+            android:checked="false"
+            android:background="@android:color/transparent"/>
+
+        <TextView
+            android:id="@+id/password"
+            android:layout_width="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@+id/show_hide_btn"
+            android:layout_height="wrap_content"
+            android:text="!we#32dkoKlso$3"
+            android:textSize="18sp"
+            android:layout_below="@id/pwd_title"
+            android:textIsSelectable="true"
+            android:inputType="textPassword"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_url_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:layout_marginVertical="4dp"
+        android:layout_below="@+id/pwd_view_pwd_group">
+
+        <TextView
+            android:id="@+id/url_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="URL"
+            android:textSize="20sp"/>
+
+
+        <ImageButton
+            android:id="@+id/copy_url"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/copy"
+            android:backgroundTint="@android:color/transparent"
+            />
+
+        <ImageButton
+            android:id="@+id/redirect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@+id/copy_url"
+            android:layout_centerVertical="true"
+            android:src="@drawable/redirect"
+            android:backgroundTint="@android:color/transparent"
+            />
+        <TextView
+            android:id="@+id/url"
+            android:layout_width="0dp"
+            android:layout_alignParentStart="true"
+            android:layout_toStartOf="@id/redirect"
+            android:layout_height="wrap_content"
+            android:text="mysandbox.website.com"
+            android:textSize="18sp"
+            android:layout_below="@id/url_title"
+            android:textIsSelectable="true"
+            />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/pwd_view_btns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/pwd_view_url_group"
+        android:layout_marginTop="16dp"
+        >
+
+        <Button
+            android:id="@+id/btn_edit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:layout_marginHorizontal="4dp"
+            />
+
+        <Button
+            android:id="@+id/btn_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Back"
+            android:layout_toRightOf="@id/btn_edit"
+            android:layout_marginHorizontal="4dp"
+            />
+    </RelativeLayout>
+</RelativeLayout>
