@@ -21,6 +21,19 @@ import com.pwdmngr.passwordmanager.modules.SaveButton;
 import com.pwdmngr.passwordmanager.modules.Toast;
 import com.pwdmngr.passwordmanager.util.DatabaseHandler;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 public class EditPassword extends AppCompatActivity {
 
     private int id;
@@ -183,7 +196,15 @@ public class EditPassword extends AppCompatActivity {
             // Update the row with new data
             db = new DatabaseHandler(this);
             db.openDatabase();
-            db.update(id, new_title, new_username, new_pwd, new_url);
+            try {
+                db.update(id, new_title, new_username, new_pwd, new_url);
+            } catch (InvalidAlgorithmParameterException | NoSuchPaddingException |
+                     UnrecoverableEntryException | IllegalBlockSizeException |
+                     CertificateException | NoSuchAlgorithmException | KeyStoreException |
+                     IOException | BadPaddingException | InvalidKeyException |
+                     NoSuchProviderException e) {
+                throw new RuntimeException(e);
+            }
             db.close();
 
             // Notify the user of the changes

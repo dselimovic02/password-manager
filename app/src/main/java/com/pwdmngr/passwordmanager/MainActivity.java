@@ -1,11 +1,11 @@
 package com.pwdmngr.passwordmanager;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.activity.EdgeToEdge;
-import androidx.activity.OnBackPressedCallback;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
@@ -17,8 +17,10 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pwdmngr.passwordmanager.adapter.PwdAdapter;
 import com.pwdmngr.passwordmanager.model.PwdModel;
 import com.pwdmngr.passwordmanager.modules.BackPressed;
+import com.pwdmngr.passwordmanager.modules.АЕS;
 import com.pwdmngr.passwordmanager.util.DatabaseHandler;
 
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -41,6 +43,25 @@ public class MainActivity extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        // Generate secret key for data encryption and decryption
+        SharedPreferences settings = getSharedPreferences("prefs", Context.MODE_PRIVATE);
+        boolean hasRun = settings.getBoolean("hasRun", false);
+
+        if (!hasRun) {
+            try {
+                // Generate key
+                АЕS.generateKey();
+
+                // Update the hasRun status
+                SharedPreferences.Editor edit = settings.edit();
+                edit.putBoolean("hasRun", true);
+                edit.commit();
+            } catch (NoSuchAlgorithmException e) {
+                throw new RuntimeException(e);
+            }
+        }
+
 
         // Disable system back button
         BackPressed.disable(getOnBackPressedDispatcher(), this);

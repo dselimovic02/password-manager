@@ -34,6 +34,19 @@ import com.pwdmngr.passwordmanager.util.DatabaseHandler;
 
 import com.pwdmngr.passwordmanager.modules.Toast;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
+
 public class AddNewPassword extends AppCompatActivity {
 
     private Button backBtn, saveBtn;
@@ -114,7 +127,15 @@ public class AddNewPassword extends AppCompatActivity {
                 newPwd.setUrl(String.valueOf(url.getText()));
 
                 // Insert data model into db
-                db.insertPassword(newPwd);
+                try {
+                    db.insertPassword(newPwd);
+                } catch (InvalidAlgorithmParameterException | NoSuchPaddingException |
+                         UnrecoverableEntryException | IllegalBlockSizeException |
+                         CertificateException | NoSuchAlgorithmException | KeyStoreException |
+                         IOException | BadPaddingException | InvalidKeyException |
+                         NoSuchProviderException e) {
+                    throw new RuntimeException(e);
+                }
 
                 // Notify the user
                 Toast.showShortWithCustomText(AddNewPassword.this, "Password added successfully");

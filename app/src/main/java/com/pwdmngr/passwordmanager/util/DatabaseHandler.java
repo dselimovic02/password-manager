@@ -5,13 +5,24 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
-import android.os.Build;
 
-import com.pwdmngr.passwordmanager.MainActivity;
 import com.pwdmngr.passwordmanager.model.PwdModel;
+import com.pwdmngr.passwordmanager.modules.АЕS;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class DatabaseHandler extends SQLiteOpenHelper {
     private static final int VERSION = 1;
@@ -50,11 +61,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         db = this.getWritableDatabase();
     }
 
-    public void insertPassword(PwdModel pwd) {
+    public void insertPassword(PwdModel pwd) throws InvalidAlgorithmParameterException, NoSuchPaddingException, UnrecoverableEntryException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, BadPaddingException, InvalidKeyException, NoSuchProviderException {
         ContentValues cv = new ContentValues();
         cv.put(TITLE, pwd.getTitle());
         cv.put(USERNAME, pwd.getUsername());
-        cv.put(PWD, pwd.getPwd());
+        cv.put(PWD, АЕS.encrypt(pwd.getPwd()));
         cv.put(URL, pwd.getUrl());
         db.insert(PWD_TABLE, null, cv);
     }
@@ -70,6 +81,28 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                     pwdList.add(pwd);
                 } while (cur.moveToNext());
             }
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (UnrecoverableEntryException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (CertificateException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (KeyStoreException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+            throw new RuntimeException(e);
         } finally {
             if (cur != null) {
                 cur.close();
@@ -78,7 +111,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return pwdList;
     }
 
-    public PwdModel getPassword(int id) {
+    public PwdModel getPassword(int id) throws InvalidAlgorithmParameterException, NoSuchPaddingException, UnrecoverableEntryException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, BadPaddingException, InvalidKeyException, NoSuchProviderException {
         PwdModel pwd = null;
         Cursor cur = null;
         String where = String.format("%s = %d", ID, id);
@@ -92,24 +125,24 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         return pwd;
     }
 
-    private PwdModel makePwdModel(Cursor cur) {
+    private PwdModel makePwdModel(Cursor cur) throws InvalidAlgorithmParameterException, NoSuchPaddingException, UnrecoverableEntryException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, BadPaddingException, InvalidKeyException, NoSuchProviderException {
 
         PwdModel pwd = new PwdModel();
         pwd.setId(cur.getInt(cur.getColumnIndexOrThrow(ID)));
         pwd.setTitle(cur.getString(cur.getColumnIndexOrThrow(TITLE)));
         pwd.setUsername(cur.getString(cur.getColumnIndexOrThrow(USERNAME)));
-        pwd.setPwd(cur.getString(cur.getColumnIndexOrThrow(PWD)));
+        pwd.setPwd(АЕS.decrypt(cur.getString(cur.getColumnIndexOrThrow(PWD))));
         pwd.setUrl(cur.getString(cur.getColumnIndexOrThrow(URL)));
 
         return pwd;
     }
 
-    public void update(int id, String title, String username, String pwd, String url) {
+    public void update(int id, String title, String username, String pwd, String url) throws InvalidAlgorithmParameterException, NoSuchPaddingException, UnrecoverableEntryException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, BadPaddingException, InvalidKeyException, NoSuchProviderException {
         ContentValues cv = new ContentValues();
 
         if(title != null) cv.put(TITLE, title);
         if(username != null) cv.put(USERNAME, username);
-        if(pwd != null) cv.put(PWD, pwd);
+        if(pwd != null) cv.put(PWD, АЕS.encrypt(pwd));
         if(url != null) cv.put(URL, url);
 
 

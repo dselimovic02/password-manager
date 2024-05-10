@@ -24,7 +24,19 @@ import com.pwdmngr.passwordmanager.modules.BackPressed;
 import com.pwdmngr.passwordmanager.modules.Toast;
 import com.pwdmngr.passwordmanager.util.DatabaseHandler;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableEntryException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.BadPaddingException;
+import javax.crypto.IllegalBlockSizeException;
+import javax.crypto.NoSuchPaddingException;
 
 public class PwdView extends AppCompatActivity {
 
@@ -45,14 +57,38 @@ public class PwdView extends AppCompatActivity {
         // Disable system back button
         BackPressed.disable(getOnBackPressedDispatcher(), this);
 
-        pwdData = retrievePwdData();
+        try {
+            pwdData = retrievePwdData();
+        } catch (InvalidAlgorithmParameterException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (UnrecoverableEntryException e) {
+            throw new RuntimeException(e);
+        } catch (IllegalBlockSizeException e) {
+            throw new RuntimeException(e);
+        } catch (CertificateException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchAlgorithmException e) {
+            throw new RuntimeException(e);
+        } catch (KeyStoreException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        } catch (BadPaddingException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidKeyException e) {
+            throw new RuntimeException(e);
+        } catch (NoSuchProviderException e) {
+            throw new RuntimeException(e);
+        }
 
         setupViews();
 
         setupButtons();
     }
 
-    private PwdModel retrievePwdData() {
+    private PwdModel retrievePwdData() throws InvalidAlgorithmParameterException, NoSuchPaddingException, UnrecoverableEntryException, IllegalBlockSizeException, CertificateException, NoSuchAlgorithmException, KeyStoreException, IOException, BadPaddingException, InvalidKeyException, NoSuchProviderException {
         // Retrieve data from intent
         Intent i = getIntent();
         int id = i.getIntExtra("id", -1);
