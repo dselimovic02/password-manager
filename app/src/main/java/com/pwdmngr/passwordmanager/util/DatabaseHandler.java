@@ -57,40 +57,35 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         cv.put(PWD, pwd.getPwd());
         cv.put(URL, pwd.getUrl());
         db.insert(PWD_TABLE, null, cv);
-        List<PwdModel> l = getAllPasswords();
     }
 
     public List<PwdModel> getAllPasswords() {
         List<PwdModel> pwdList = new ArrayList<>();
         Cursor cur = null;
-        db.beginTransaction();
         try {
-            cur = db.query(PWD_TABLE, null, null, null, null, null, null, null);
-            if (cur != null) {
-                if (cur.moveToFirst()) {
-                    do {
-                        PwdModel pwd = makePwdModel(cur);
-                        pwdList.add(pwd);
-                    }while (cur.moveToNext());
-                }
+            cur = db.query(PWD_TABLE, null, null, null, null, null, null);
+            if (cur != null && cur.moveToFirst()) {
+                do {
+                    PwdModel pwd = makePwdModel(cur);
+                    pwdList.add(pwd);
+                } while (cur.moveToNext());
             }
         } finally {
-            db.endTransaction();
-            cur.close();
+            if (cur != null) {
+                cur.close();
+            }
         }
         return pwdList;
     }
 
     public PwdModel getPassword(int id) {
         PwdModel pwd = null;
-        db.beginTransaction();
         Cursor cur = null;
         String where = String.format("%s = %d", ID, id);
-        try {
-            cur = db.query(PWD_TABLE, null, where, null, null, null, null);
-            if(cur != null) pwd = makePwdModel(cur);
-        } finally {
-            db.endTransaction();
+        cur = db.query(PWD_TABLE, null, where, null, null, null, null);
+
+        if(cur != null && cur.moveToNext()) {
+            pwd = makePwdModel(cur);
             cur.close();
         }
 
@@ -98,8 +93,6 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     }
 
     private PwdModel makePwdModel(Cursor cur) {
-        if (cur == null) return null;
-        if (!cur.moveToFirst()) return null;
 
         PwdModel pwd = new PwdModel();
         pwd.setId(cur.getInt(cur.getColumnIndexOrThrow(ID)));

@@ -61,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         pwdList = db.getAllPasswords();
+        db.close();
         Collections.reverse(pwdList);
         pwdAdapter.update(pwdList);
     }
