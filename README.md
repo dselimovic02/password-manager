@@ -15,7 +15,7 @@ You can add, edit and delete your credentials with ease while being secure. You 
 The app is currently not on the play store, but you have two options to run the app yourself.
 
 1. Clone this repository and run in through the [Android Studio](https://developer.android.com/studio).
-2. Download the APK from [Mediafire](https://www.mediafire.com/file/lkr15gpr9ghj8eu/Password_Manager.zip/file). 
+2. Download the APK from [Mediafire](https://www.mediafire.com/file/68pjde2rnm04g4p/Password+Manager.zip/file). 
 	>Installing the APK:
 	> 1. Download the .zip file from Mediafire
 	> 2. Extract the .zip
