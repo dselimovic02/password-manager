@@ -1,5 +1,6 @@
 package com.pwdmngr.passwordmanager.modules;
 
+import android.content.SharedPreferences;
 import android.os.Build;
 
 import java.io.IOException;
@@ -21,8 +22,9 @@ import javax.crypto.KeyGenerator;
 import javax.crypto.NoSuchPaddingException;
 import javax.crypto.SecretKey;
 import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
 
-public class АЕS {
+public class AESAlgorithm {
 
     private static SecretKey key;
 
@@ -53,6 +55,7 @@ public class АЕS {
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
 
         // Decode the Base64 encoded input text
+
         byte[] combinedBytes = new byte[0];
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O
         ) {
@@ -74,5 +77,29 @@ public class АЕS {
         KeyGenerator keygen = KeyGenerator.getInstance("AES");
         keygen.init(256);
         key = keygen.generateKey();
+    }
+
+    public static void saveKey(SharedPreferences sp) {
+        SharedPreferences.Editor edit = sp.edit();
+
+        String encodedKey = null;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            encodedKey = Base64.getEncoder().encodeToString(key.getEncoded());
+        }
+
+        edit.putString("key", encodedKey);
+        edit.commit();
+    }
+
+    public static void loadKey(SharedPreferences sp) {
+        String encodedKey = sp.getString("key", null);
+        if (encodedKey != null) {
+            byte[] decodedKey = new byte[0];
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+                decodedKey = Base64.getDecoder().decode(encodedKey);
+            }
+            key = new SecretKeySpec(decodedKey, 0, decodedKey.length, "AES");
+        }
     }
 }

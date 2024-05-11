@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
 import com.pwdmngr.passwordmanager.model.PwdModel;
-import com.pwdmngr.passwordmanager.modules.АЕS;
+import com.pwdmngr.passwordmanager.modules.AESAlgorithm;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -65,7 +65,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues cv = new ContentValues();
         cv.put(TITLE, pwd.getTitle());
         cv.put(USERNAME, pwd.getUsername());
-        cv.put(PWD, АЕS.encrypt(pwd.getPwd()));
+        cv.put(PWD, AESAlgorithm.encrypt(pwd.getPwd()));
         cv.put(URL, pwd.getUrl());
         db.insert(PWD_TABLE, null, cv);
     }
@@ -131,7 +131,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         pwd.setId(cur.getInt(cur.getColumnIndexOrThrow(ID)));
         pwd.setTitle(cur.getString(cur.getColumnIndexOrThrow(TITLE)));
         pwd.setUsername(cur.getString(cur.getColumnIndexOrThrow(USERNAME)));
-        pwd.setPwd(АЕS.decrypt(cur.getString(cur.getColumnIndexOrThrow(PWD))));
+        pwd.setPwd(AESAlgorithm.decrypt(cur.getString(cur.getColumnIndexOrThrow(PWD))));
         pwd.setUrl(cur.getString(cur.getColumnIndexOrThrow(URL)));
 
         return pwd;
@@ -142,7 +142,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
         if(title != null) cv.put(TITLE, title);
         if(username != null) cv.put(USERNAME, username);
-        if(pwd != null) cv.put(PWD, АЕS.encrypt(pwd));
+        if(pwd != null) cv.put(PWD, AESAlgorithm.encrypt(pwd));
         if(url != null) cv.put(URL, url);
 
 

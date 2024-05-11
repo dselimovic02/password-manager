@@ -16,8 +16,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.pwdmngr.passwordmanager.adapter.PwdAdapter;
 import com.pwdmngr.passwordmanager.model.PwdModel;
+import com.pwdmngr.passwordmanager.modules.AESAlgorithm;
 import com.pwdmngr.passwordmanager.modules.BackPressed;
-import com.pwdmngr.passwordmanager.modules.АЕS;
 import com.pwdmngr.passwordmanager.util.DatabaseHandler;
 
 import java.security.NoSuchAlgorithmException;
@@ -51,8 +51,8 @@ public class MainActivity extends AppCompatActivity {
         if (!hasRun) {
             try {
                 // Generate key
-                АЕS.generateKey();
-
+                AESAlgorithm.generateKey();
+                AESAlgorithm.saveKey(settings);
                 // Update the hasRun status
                 SharedPreferences.Editor edit = settings.edit();
                 edit.putBoolean("hasRun", true);
@@ -60,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
             } catch (NoSuchAlgorithmException e) {
                 throw new RuntimeException(e);
             }
+        } else {
+            AESAlgorithm.loadKey(settings);
         }
 
 
