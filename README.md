@@ -26,7 +26,7 @@ The app is currently not on the play store, but you have two options to run the 
 
 -  CRUD (Create Read Update and Delete) - You can add, modify and delete data. Changes cannot be undone.
 - Strong password generator - While adding a new set of credentials, or modifying existing ones, you have the option to input your own password, or generate a strong one that adheres to security best practices and regulations. (Generated passwords are consisted of 15 random characters including minimum of each: uppercase and lowercase letters, numbers and special characters).
-- AES encryption/decryption - Passwords are encrypted with AES algorithm upon writing to database and decrypted upon reading from database. * I did not figure out how to secure the key better that storing it as a private class variable. I have tried using the Key Store but encountered some problems. (Read contribution section if you want to help
+- AES encryption/decryption - Passwords are encrypted with AES algorithm upon writing to database and decrypted upon reading from database. Encryption key is encoded using Base64 and then stored in Shared Preferences file. 
 - Database handling - The app uses the SQLite database on your device to store the data.
 - UX/UI design - Even though I am not keen on designing interfaces and thinking about user experience, (I care more about brains that the looks) I have incorporated some essential UX/UI features like custom icon, splash screen, toasts, compatibility with Day and Night themes, layout constraints, alerts etc. 
 
